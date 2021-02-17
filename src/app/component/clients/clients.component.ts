@@ -3,6 +3,8 @@ import {IClients} from './Interfaz/IClients';
 import {FormClient} from './Form.cliente';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {ClientProviderService} from '../../provider/client-provider.service';
+import { AlertService } from 'src/app/utils/alert/alert.service';
+
 
 
 @Component({
@@ -14,7 +16,7 @@ export class ClientsComponent implements OnInit {
   formCliente =  FormClient;
   tableData: IClients[];
 
-  constructor(private modalService: NgbModal,private ProviderService:ClientProviderService) {}
+  constructor(private modalService: NgbModal,private ProviderService:ClientProviderService,private alert:AlertService) {}
 
   ngOnInit(): void {
   }
@@ -25,14 +27,19 @@ export class ClientsComponent implements OnInit {
     const formData: IClients =  this.formCliente.value;
     
     if (!this.formCliente.valid) {
-      this._alerService.error(
+      this.alert.error(
         'Debe completar todo los campos',
         'Registro incorrecto'
       );
       return;
     }
 
-    
+    this.ProviderService.Post(formData).subscribe(
+      (res)=>{},
+      (err)=>{}
+    )
+
+
 
 
     console.log(formData);
