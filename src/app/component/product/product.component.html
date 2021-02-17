@@ -1,1 +1,56 @@
-<p>product works!</p>
+<!---table lista clientes-->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title font-16 text-uppercase">Productos</h4>
+                    </div>
+
+                </div>
+                <div class="d-md-flex align-items-center">
+
+                   
+                    <div class="ml-auto">
+                        <div class="dl">
+                            <button class="btn btn-lg btn-outline-primary" (click)="reset()">
+                               reset
+                            </button>
+                            <button class="btn btn-lg btn-outline-primary" (click)="loadFilter()">
+                                producto en el año 2000
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- title -->
+
+                <div class="table-responsive">
+                    <dx-data-grid id="gridContainer" [dataSource]="tableData" [remoteOperations]="false" [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true">
+
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+                        <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+
+
+                        <dxi-column dataField="product1" caption="Producto"></dxi-column>
+                        <dxi-column dataField="prince" caption="Precio" datatype="number"></dxi-column>
+                        <dxi-column dataField="cuantity" caption="Cantidad" datatype="number"></dxi-column>
+                        <dxi-column dataField="email" caption="Correo electronico"></dxi-column>
+                        <dxi-column dataField="createAt" datatype="date" format="yyyy-MM-dd" caption="Fecha Creacion"></dxi-column>
+                        <dxi-column caption="Fecha actualizacion" dataField="updateAt" dataType="date" format="yyyy-MM-dd"></dxi-column>
+
+                    </dx-data-grid>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

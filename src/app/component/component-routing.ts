@@ -15,6 +15,10 @@ export const ComponentRouting: Routes = [
 				path: 'clientes',
 				component: ClientsComponent,
 			},
+			{
+				path: 'productos',
+				component: ProductComponent,
+			},
             
         ],
         

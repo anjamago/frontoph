@@ -3,6 +3,6 @@ export interface IClients{
     LastName: string;
     Address: string;
     Email: string;
-    Birthday: Date;
+    Birthday: string;
     IdentificationNumber: number;
 }

@@ -11,10 +11,11 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class BaseRequestService {
 
+  private token:string =  "";
   basePatch = environment.production === false ? environment.dev : environment.prod;
   constructor(
-    private _http: HttpClient,
-    private token: ""
+    private _http: HttpClient
+   
   ) { }
 
 
@@ -26,6 +27,16 @@ export class BaseRequestService {
         catchError(this.handleError)
       );
   }
+
+  getPromise(url): Promise<any>{
+    const headers = this.httpOptions();
+    
+    return this._http.get(`${this.basePatch}${url}`, headers).pipe(
+      map(res => { return res }),
+      catchError(this.handleError)
+    ).toPromise();
+  }
+
   post(url, data: any): Observable<any> {
     const headers = this.httpOptions();
     return this._http.post(`${this.basePatch}${url}`, data, headers)

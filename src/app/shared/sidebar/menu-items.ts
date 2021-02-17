@@ -12,26 +12,10 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/vendedores',
-    title: 'Vendedores',
-    icon: '',
-    class: 'nav-small-cap',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/categorias',
-    title: 'Categorias',
-    icon: '',
-    class: 'nav-small-cap',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: 'component/productos',
     title: 'Productos',
     icon: '',
-    class: 'nav-small-cap',
+    class: '',
     extralink: false,
     submenu: []
   },
@@ -39,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
     path: 'component/facturacion',
     title: 'Facturacion',
     icon: '',
-    class: 'nav-small-cap',
+    class: '',
     extralink: false,
     submenu: []
   },

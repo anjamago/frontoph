@@ -4,7 +4,7 @@ import {FormClient} from './Form.cliente';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {ClientProviderService} from '../../provider/client-provider.service';
 import { AlertService } from 'src/app/utils/alert/alert.service';
-
+import DataSource from 'devextreme/data/data_source';
 
 
 @Component({
@@ -12,19 +12,32 @@ import { AlertService } from 'src/app/utils/alert/alert.service';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
+
 export class ClientsComponent implements OnInit {
   formCliente =  FormClient;
-  tableData: IClients[];
+  tableData: DataSource;
 
-  constructor(private modalService: NgbModal,private ProviderService:ClientProviderService,private alert:AlertService) {}
+  constructor(
+    private modalService: NgbModal,
+    private providerService:ClientProviderService,
+    private alert:AlertService
+     ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.tableData = await this.loadTable();
   }
+
+  loadTable =() =>new DataSource({
+    key:'id',
+    load:()=>this.providerService.GetAll()
+  });
+
 
   openModal = (content1:string):NgbModalRef  => this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title',size: 'lg'});
 
-  save() :void {
-    const formData: IClients =  this.formCliente.value;
+  async save()  {
+    let formData: IClients =  this.formCliente.value;
+    const {Birthday } =  this.formCliente.value;
     
     if (!this.formCliente.valid) {
       this.alert.error(
@@ -33,17 +46,35 @@ export class ClientsComponent implements OnInit {
       );
       return;
     }
+    const month =  Birthday.month <10 ? `0${Birthday.month}`:Birthday.month;
+    formData.Birthday = `${Birthday.year}-${month}-${Birthday.day}`;
 
-    this.ProviderService.Post(formData).subscribe(
-      (res)=>{},
-      (err)=>{}
-    )
-
-
+    await this.providerService.Post(formData).subscribe(
+      async (res)=>{
+        await this.reset();
+        this.formCliente.reset();
+      },
+      (err)=>{
+        this.alert.info(
+          'Error al crear el registro',
+          'Opps'
+        );
+      }
+    );
 
 
     console.log(formData);
     this.modalService.dismissAll();
+  }
+  async reset(){
+    this.tableData = await this.loadTable();
+  }
+
+  async loadFilter(){
+    this.tableData = new DataSource({
+      key:'id',
+      load:()=>this.providerService.GetFilter()
+    });
   }
 	
 
