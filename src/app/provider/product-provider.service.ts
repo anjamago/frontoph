@@ -15,4 +15,5 @@ export class ProductProviderService {
   GetFilter():Promise<any> {
     return this.http.getPromise("invoice/TotalSold");
   }
+  
 }
