@@ -10,19 +10,19 @@ export class ClientProviderService {
   constructor(private http:BaseRequestService) { }
 
   Post(data:any) {
-    return this.http.post();
+    return this.http.post("client/create",data);
   }
-  Find(data:any) {
-    return this.http.get();
+  Find(id : number) {
+    return this.http.get(`client/fiend?id=${id}`);
   }
-  GetAll(data:any) {
-    return this.http.get();
+  GetAll():Promise<any> {
+    return this.http.getPromise("client");
   }
   Update(data:any) {
-    return this.http.put();
+    return this.http.put("client/update",data);
   }
-  Delet(data:any) {
-    return this.http.delete();
+  Delet(id:number) {
+    return this.http.delete(`client/delete?id=${id}`);
   }
 
 

@@ -14,6 +14,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderNavigationComponent } from './shared/header-navigation/header-navigation.component';
 
 import { Approutes } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { Approutes } from './app-routing.module';
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(Approutes, { useHash: false, relativeLinkResolution: 'legacy' })
+    RouterModule.forRoot(Approutes, { useHash: false, relativeLinkResolution: 'legacy' }),
+    HttpClientModule
  
   ],
   providers: [],

@@ -13,6 +13,10 @@ import { ComponentRouting } from './component-routing';
 
 import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { DxDataGridModule,
+  DxBulletModule,
+  DxTemplateModule } from 'devextreme-angular';
+
 
 
 @NgModule({
@@ -22,7 +26,10 @@ import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
     RouterModule.forChild(ComponentRouting),
     FormsModule,
     ReactiveFormsModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+        DxDataGridModule,
+        DxTemplateModule,
+        DxBulletModule
   ]
 })
 export class ComponentModule { }

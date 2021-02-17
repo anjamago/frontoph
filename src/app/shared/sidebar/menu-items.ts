@@ -12,22 +12,6 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/vendedores',
-    title: 'Vendedores',
-    icon: '',
-    class: 'nav-small-cap',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/categorias',
-    title: 'Categorias',
-    icon: '',
-    class: 'nav-small-cap',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: 'component/productos',
     title: 'Productos',
     icon: '',

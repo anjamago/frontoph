@@ -3,6 +3,8 @@ import {IClients} from './Interfaz/IClients';
 import {FormClient} from './Form.cliente';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {ClientProviderService} from '../../provider/client-provider.service';
+import { AlertService } from 'src/app/utils/alert/alert.service';
+import DataSource from 'devextreme/data/data_source';
 
 
 @Component({
@@ -10,27 +12,54 @@ import {ClientProviderService} from '../../provider/client-provider.service';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
+
 export class ClientsComponent implements OnInit {
   formCliente =  FormClient;
-  tableData: IClients[];
+  tableData: DataSource  ;
 
-  constructor(private modalService: NgbModal,private ProviderService:ClientProviderService) {}
+  constructor(
+    private modalService: NgbModal,
+    private providerService:ClientProviderService,
+    private alert:AlertService
+     ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.tableData = await this.loadTable();
   }
+
+  loadTable =() =>new DataSource({
+    key:'id',
+    load:()=>this.providerService.GetAll()
+  });
+
 
   openModal = (content1:string):NgbModalRef  => this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title',size: 'lg'});
 
   save() :void {
-    const formData: IClients =  this.formCliente.value;
+    let formData: IClients =  this.formCliente.value;
+    const {Birthday } =  this.formCliente.value;
     
     if (!this.formCliente.valid) {
-      this._alerService.error(
+      this.alert.error(
         'Debe completar todo los campos',
         'Registro incorrecto'
       );
       return;
     }
+    const month =  Birthday.month <10 ? `0${Birthday.month}`:Birthday.month;
+    formData.Birthday = `${Birthday.year}-${month}-${Birthday.day}`;
+
+    this.providerService.Post(formData).subscribe(
+      (res)=>{
+        this.loadTable();
+      },
+      (err)=>{
+        this.alert.info(
+          'Error al crear el registro',
+          'Opps'
+        );
+      }
+    )
 
     
 

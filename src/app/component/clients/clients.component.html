@@ -9,38 +9,44 @@
                         <h4 class="card-title font-16 text-uppercase">Clientes</h4>
                     </div>
 
-                    <button class="btn btn-lg btn-outline-primary" (click)="openModal(modalcreate)">Crear
-                        Cliente</button>
+                </div>
+                <div class="d-md-flex align-items-center">
+
+                    <div class="d-grid gap-2 d-md-flex card-title">
+                        <button class="btn btn-lg btn-outline-primary" (click)="openModal(modalcreate)">Crear
+                                    Cliente</button>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="dl">
+                            <button class="btn btn-lg btn-outline-primary" (click)="openModal(modalcreate)">
+                                Filtrar 1 de febrero de 2000 a 25 de mayo de 2000
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- title -->
 
                 <div class="table-responsive">
-                    <table class="table v-middle nowrap">
-                        <thead>
-                            <tr>
-                                <th class="border-top-0">#</th>
-                                <th class="border-top-0">Nombre</th>
-                                <th class="border-top-0">Apellido</th>
-                                <th class="border-top-0">Dirección</th>
-                                <th class="border-top-0">Correo Electronico</th>
-                                <th class="border-top-0">Identificación</th>
-                                <th class="border-top-0">Fecha de Nacimiento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor='let data of tableData'>
-                                <td> {{data.Name}} </td>
-                                <td> {{data.LastName}} </td>
-                                <td> {{data.Address}} </td>
-                                <td> {{data.Email}} </td>
-                                <td> {{data.IdentificationNumber}} </td>
-                                <td> {{data.Birthday.toDateString()}} </td>
-                            </tr>
+                    <dx-data-grid id="gridContainer" [dataSource]="tableData" [remoteOperations]="false" [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true">
 
-                        </tbody>
-                    </table>
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+                        <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+
+
+                        <dxi-column dataField="name" caption="Nombre"></dxi-column>
+                        <dxi-column dataField="lastName" caption="Apellido"></dxi-column>
+                        <dxi-column dataField="address" caption="Dirección"></dxi-column>
+                        <dxi-column dataField="email" caption="Correo electronico"></dxi-column>
+                        <dxi-column dataField="identificationNumber" datatype="number" caption="Identidicación"></dxi-column>
+                        <dxi-column caption="Fecha nacimiento" dataField="birthday" dataType="date" format="yyyy-MM-dd"></dxi-column>
+
+                    </dx-data-grid>
                 </div>
+
             </div>
         </div>
     </div>
@@ -98,8 +104,7 @@
                     <!--  <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker"> -->
 
 
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="Birthday"
-                        ngbDatepicker #d="ngbDatepicker">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="Birthday" ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                             <span class="mdi mdi-calendar"></span>
